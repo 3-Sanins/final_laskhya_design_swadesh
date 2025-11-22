@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Swadeshi - Home</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f7f8fa;
+    color: #111;
+}
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    padding: 12px 40px;
+    display: flex;
+    align-items: center;
+    gap: 50vh;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* LOGO */
+.logo {
+    font-size: 26px;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: 1px;
+}
+
+/* NAV TERMS (Home + Dropdown + Search) */
+.navterms {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.navterms a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 500;
+    font-size: 16px;
+    position: relative;
+}
+
+.navterms a:hover {
+    color: #111;  /* premium pink */
+}
+
+/* DROPDOWN */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    width: 220px;
+    padding: 10px 0;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border-radius: 6px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+.dropdown-content button {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background: none;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 500;
+    color: #444;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.dropdown-content button:hover {
+    background: #ffe3ef;
+    color: #111;
+}
+
+/* SEARCH BOX */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-box input {
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    width: 200px;
+    transition: 0.3s ease;
+}
+
+.search-box input:focus {
+    border-color: #111;
+    outline: none;
+}
+
+.search-box button {
+    padding: 8px 16px;
+    border: none;
+    background: #111;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.search-box button:hover {
+    background:#111;
+}
+
+
+/* Hero */
+.hero-small {
+    position: relative;
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 20px auto;
+}
+.hero-small img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    filter: brightness(60%);
+}
+.hero-small-text {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+.hero-small-text h1 { font-size: 60px; font-weight: 700; }
+.hero-small-text p { font-size: 20px; margin: 12px 0 22px; }
+.hero-btn-small {
+    padding: 12px 28px;
+    background: #fff; color: #000;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+}
+
+/* Section Title */
+.section-title {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 700;
+    margin-top: 50px;
+}
+
+/* Cards */
+/* Section Title */
+.section-title {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 700;
+    margin-top: 50px;
+}
+
+/* Cards */
+.card-row {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin: 25px auto;
+    width: 90%;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 300px;
+    height: 360px;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Image fit */
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: inherit;
+}
+
+/* Hover effect — card upar uth jaye */
+.card:hover {
+    transform: translateY(-12px); /* Upar uthna */
+    box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+}
+
+/* Baaki cards thode lambe dikhne ki trick — hover na hone par */
+.card-row:hover .card:not(:hover) {
+    transform: translateY(6px); /* Neeche thoda push */
+    opacity: 0.85;
+    filter: brightness(0.9);
+}
+
+/* Features */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    margin: 60px auto;
+    width: 90%;
+}
+.feature-box {
+    background: #fff;
+    padding: 22px 28px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 260px;
+}
+.feature-box h3 { font-size: 20px; }
+
+/* ---------- CONTACT SECTION ---------- */
+.contact-section {
+    padding: 60px 8%;
+    background: #f7f8fa;
+    font-family: "Poppins", sans-serif;
+}
+
+.contact-section h2 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #111;
+}
+
+/* Wrapper */
+.contact-wrapper {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Left Box: Form */
+.contact-box {
+    flex: 1;
+    min-width: 330px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.contact-box h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+/* Form Fields */
+.contact-box form input,
+.contact-box form textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 14px;
+    border-radius: 10px;
+    border: 1px solid #d8d8d8;
+    font-size: 15px;
+    background: #fafafa;
+    transition: 0.2s;
+}
+
+.contact-box form input:focus,
+.contact-box form textarea:focus {
+    border-color: #111;
+    background: #fff;
+    outline: none;
+}
+
+/* Textarea */
+.contact-box form textarea {
+    height: 120px;
+    resize: none;
+}
+
+/* Button */
+.contact-box form button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    background: #111;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.contact-box form button:hover {
+    background: #333;
+}
+
+/* ---------- Right Side Info ---------- */
+.contact-info-block {
+    margin-top: 5vh;
+    background: #fff;
+    padding: 22px 26px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    min-width: 280px;
+}
+
+.contact-info-block h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    color: #111;
+}
+
+.contact-info-block p {
+    margin: 0;
+    font-size: 15px;
+    color: #444;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .contact-wrapper {
+        flex-direction: column;
+    }
+}
+
+
+/* Footer */
+footer {
+    background: #111;
+    color: #fff;
+    padding: 50px 30px 20px;
+    margin-top: 50px;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">Swadeshi Clothing</div>
+
+    <div class="navterms">
+        <a href="#">Home</a>
+
+        <div class="dropdown">
+            <a href="#">Categories</a>
+
+            <div class="dropdown-content">
+                <button onclick="categoryMatch('saree')">Saree</button>
+                <button onclick="categoryMatch('unstich suit')">Unstich Suit</button>
+                <button onclick="categoryMatch('lehenga')">Lehenga</button>
+                <button onclick="categoryMatch('lanche')">Lanche</button>
+                <button onclick="categoryMatch('fancy dress')">Fancy Dress</button>
+                <button onclick="categoryMatch('crop top')">Crop Top</button>
+                <button onclick="categoryMatch('gown')">Gown</button>
+                <button onclick="categoryMatch('kurta sharaha')">Kurta Sharaha</button>
+                <button onclick="categoryMatch('readymade suits')">Readymade Suits</button>
+                <button onclick="categoryMatch('cardigan')">Cardigan</button>
+                <button onclick="categoryMatch('showl')">Showl</button>
+                <button onclick="categoryMatch('stole')">Stole</button>
+                <button onclick="categoryMatch('blankets')">Blankets</button>
+                <button onclick="categoryMatch('bedsheet')">Bedsheet</button>
+                <button onclick="categoryMatch('curtains')">Curtains</button>
+                <button onclick="categoryMatch('sofa covers')">Sofa Covers</button>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search products...">
+            <button onclick="handleSearchClick()">Search</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- HERO -->
+<div class="hero-small">
+    <img src="assets/mwh.webp">
+    <div class="hero-small-text">
+        <h1>Latest Collection</h1>
+        <p>Fresh trends for everyone</p>
+        <button class="hero-btn-small">Shop Now</button>
+    </div>
+</div>
+
+<h2 class="section-title">Popular Categories</h2>
+
+<div class="card-row">
+    <div class="card"><img src="assets/mw1.jpg" onclick="categoryMatch('saree')"></div>
+    <div class="card"><img src="assets/mw2.jpg" onclick="categoryMatch('lehenga')"></div>
+    <div class="card"><img src="assets/mw3.jpg" onclick="categoryMatch('gown')"></div>
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+    <div class="feature-box"><h3>Low Prices</h3><p>Best products at lowest rates</p></div>
+    <div class="feature-box"><h3>Fast Delivery</h3><p>Quick & safe shipping</p></div>
+    <div class="feature-box"><h3>Premium Quality</h3><p>Handpicked collection</p></div>
+</div>
+
+
+<!-- TRENDING SECTION -->
+<h2 class="section-title">Trending Now</h2>
+
+<div class="card-row">
+    <div class="card"><img src="assets/t1.jpg" onclick="categoryMatch('trending')"></div>
+    <div class="card"><img src="assets/t2.jpg" onclick="categoryMatch('trending')"></div>
+    <div class="card"><img src="assets/t3.jpg" onclick="categoryMatch('trending')"></div>
+    <div class="card"><img src="assets/t3.jpg" onclick="categoryMatch('trending')"></div>
+</div>
+
+
+<!-- SAREE SECTION -->
+<h2 class="section-title">Latest Sarees</h2>
+
+<div class="card-row">
+    <div class="card"><img src="assets/s1.jpg" onclick="categoryMatch('saree')"></div>
+    <div class="card"><img src="assets/s2.jpg" onclick="categoryMatch('saree')"></div>
+    <div class="card"><img src="assets/s3.jpg" onclick="categoryMatch('saree')"></div>
+    <div class="card"><img src="assets/s3.jpg" onclick="categoryMatch('saree')"></div>
+</div>
+
+
+<!-- SUIT SECTION -->
+<h2 class="section-title">Stylish Suits</h2>
+
+<div class="card-row">
+    <div class="card"><img src="assets/u1.jpg" onclick="categoryMatch('unstich suit')"></div>
+    <div class="card"><img src="assets/u2.jpg" onclick="categoryMatch('unstich suit')"></div>
+    <div class="card"><img src="assets/u3.jpg" onclick="categoryMatch('unstich suit')"></div>
+    <div class="card"><img src="assets/u3.jpg" onclick="categoryMatch('unstich suit')"></div>
+</div>
+
+
+<!-- CONTACT -->
+<div class="contact-section">
+    <h2>Contact Us</h2>
+    <div class="contact-wrapper">
+        <div class="contact-box">
+            <h2>Send a Message</h2>
+            <form>
+                <input type="text" placeholder="Your Name">
+                <input type="email" placeholder="Your Email">
+                <input type="text" placeholder="Subject">
+                <textarea placeholder="Your Message"></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+        <div>
+            <div class="contact-info-block"><h3>📍 Address</h3><p>Swadeshi Market, Jaipur</p></div>
+            <div class="contact-info-block"><h3>📧 Email</h3><p>support@swadeshiclothing.com</p></div>
+            <div class="contact-info-block"><h3>📞 Phone</h3><p>+91 98765 43210</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-content">
+        <div>
+            <h3>Swadeshi Clothing</h3>
+            <p>Your trusted destination for traditional fashion.</p>
+        </div>
+
+        <div>
+            <h4>Quick Links</h4>
+            <a href="#">Home</a>
+            <a href="#">Categories</a>
+            <a href="#">Admin</a>
+        </div>
+
+        <div>
+            <h4>Support</h4>
+            <a href="#">FAQ</a>
+            <a href="#">Shipping</a>
+            <a href="#">Return Policy</a>
+        </div>
+    </div>
+
+    <p class="footer-bottom">© 2025 Swadeshi Clothing</p>
+</footer>
+
+
+<!-- FIREBASE + JS -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="main.js"></script>
+
+</body>
+</html>

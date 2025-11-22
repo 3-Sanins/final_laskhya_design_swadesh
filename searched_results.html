@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Searched Products</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #f4f5f7;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* PRODUCT CARD */
+    .product-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+      background: #ffffff;
+      padding: 20px;
+      margin-bottom: 18px;
+      border-radius: 18px;
+      border: 1px solid #e6e6e6;
+      cursor: pointer;
+      transition: 0.25s ease;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0px 10px 26px rgba(0,0,0,0.10);
+    }
+
+    /* PRODUCT IMAGE */
+    .product-card img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 14px;
+      background: #fafafa;
+      border: 1px solid #eee;
+      flex-shrink: 0;
+    }
+
+    /* INFO SECTION → SHIFTED MORE TO RIGHT */
+    .info {
+      flex-grow: 1;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left; /* RIGHT ALIGNED */
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 8px;
+    }
+
+    
+
+ 
+
+.info div:nth-child(2) {
+  color: #555;
+  line-height: 1.4;
+  font-size: 14px;
+  max-width: 420px;
+}
+
+
+    /* PRICE → shifted separately to right */
+    .price {
+      color: #e63946;
+      font-size: 24px;
+      font-weight: 800;
+      margin-top: 10px;
+      text-align: left;
+    }
+
+    .loading {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+
+      .product-card {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .info {
+        text-align: center;
+        padding-left: 0;
+      }
+
+      .price {
+        text-align: center;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container"> 
+    <div id="loading" class="loading">Loading results...</div> 
+    <div id="products"></div> 
+  </div>
+
+
+  <script type="module">
+    // --------------------
+    // Firebase Setup
+    // --------------------
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCA_H8mTHSPGKZxmadwDAHZfEcS3pqvLMY",
+      authDomain: "swadeshi-84d03.firebaseapp.com",
+      databaseURL: "https://swadeshi-84d03-default-rtdb.firebaseio.com",
+      projectId: "swadeshi-84d03",
+      storageBucket: "swadeshi-84d03.firebasestorage.app",
+      messagingSenderId: "1047926315874",
+      appId: "1:1047926315874:web:1a20eca775794903aaaa3b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const params = new URLSearchParams(window.location.search);
+    const idsParam = params.get("ids");
+    const ids = idsParam ? idsParam.split(",") : [];
+
+    const productsDiv = document.getElementById("products");
+    const loading = document.getElementById("loading");
+
+    if (ids.length === 0) {
+      loading.innerText = "No products found.";
+    } else {
+      loadProducts();
+    }
+
+    async function loadProducts() {
+      loading.style.display = "block";
+      productsDiv.innerHTML = "";
+
+      for (let id of ids) {
+        const productRef = ref(db, "products/" + id);
+        const snap = await get(productRef);
+
+        if (snap.exists()) {
+          const p = snap.val();
+          showProduct(id, p);
+        }
+      }
+
+      loading.style.display = "none";
+    }
+
+    function showProduct(id, p) {
+      const div = document.createElement("div");
+      div.className = "product-card";
+
+      div.onclick = () => {
+        window.location.href = `product.html?id=${id}`;
+      };
+
+      const thumbnail = p.media && p.media.length > 0 ? p.media[0] : "";
+
+      div.innerHTML = `
+        <img src="${thumbnail}" alt="Product">
+        <div class="info">
+            <div class="title">${p.title}</div>
+            <div>${p.description?.slice(0, 80) || ""}...</div>
+            <div class="price">₹${p.price}</div>
+        </div>
+      `;
+
+      productsDiv.appendChild(div);
+    }
+  </script>
+
+</body>
+
+</html>
