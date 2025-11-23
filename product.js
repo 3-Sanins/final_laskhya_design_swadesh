@@ -1,5 +1,5 @@
 let embedder = null;
-
+alert("Running")
 // Function to check if transformers is loaded
 function waitForTransformers() {
     return new Promise((resolve) => {
